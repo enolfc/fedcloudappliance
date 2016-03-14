@@ -1,0 +1,22 @@
+FROM bdii 
+MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
+
+RUN yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm \
+    && yum install -y git python-pip python-novaclient
+
+RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo > /etc/yum.repos.d/EGI-trustanchors.repo \
+    && yum -y install ca-policy-egi-core \
+    && cd /etc/pki/ca-trust/source/anchors \
+    && ln -s /etc/grid-security/certificates/*.pem . \
+    && update-ca-trust extract
+
+RUN mkdir /cloud-bdii \
+    && git clone https://github.com/EGI-FCTF/cloud-bdii-provider.git /cloud-bdii \
+    && cd /cloud-bdii \
+    && pip install .
+
+COPY bdii/cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
+COPY bdii/openstack.yaml /etc/cloud-info-provider/openstack.yaml
+RUN chmod +x /var/lib/bdii/gip/provider/cloud-info-provider
+
+CMD ["/usr/bin/supervisord"]
