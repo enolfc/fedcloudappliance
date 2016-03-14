@@ -5,8 +5,8 @@ MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 RUN yum install -y http://repository.egi.eu/sw/production/umd/4/centos7/x86_64/base/umd-release-4.0.0-1.el7.noarch.rpm \
     && yum install -y emi-bdii-site
 
-COPY bdii/glite-info-site-defaults.conf /etc/bdii/gip/glite-info-site-defaults.conf
-COPY bdii/site-urls.conf /etc/bdii/gip/site-urls.conf
-COPY bdii/site.cfg /etc/glite-info-static/site/site.cfg
+COPY conf/bdii/glite-info-site-defaults.conf /etc/bdii/gip/glite-info-site-defaults.conf
+COPY conf/bdii/site-urls.conf /etc/bdii/gip/site-urls.conf
+COPY conf/bdii/site.cfg /etc/glite-info-static/site/site.cfg
 
 CMD ["/usr/bin/supervisord"]

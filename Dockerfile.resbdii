@@ -15,8 +15,8 @@ RUN mkdir /cloud-bdii \
     && cd /cloud-bdii \
     && pip install .
 
-COPY bdii/cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
-COPY bdii/openstack.yaml /etc/cloud-info-provider/openstack.yaml
+COPY conf/bdii/cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
+COPY conf/bdii/openstack.yaml /etc/cloud-info-provider/openstack.yaml
 RUN chmod +x /var/lib/bdii/gip/provider/cloud-info-provider
 
 CMD ["/usr/bin/supervisord"]
