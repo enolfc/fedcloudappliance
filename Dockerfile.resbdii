@@ -1,4 +1,4 @@
-FROM bdii 
+FROM egifedcloud/bdii
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
 RUN yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm \
