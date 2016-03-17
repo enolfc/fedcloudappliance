@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 if [ -r /etc/default/bdii ] ; then
     . /etc/default/bdii
 fi
