@@ -1,6 +1,5 @@
 #!/bin/sh
 
+. /etc/cloud-info-provider/openstack.rc
 cloud-info-provider-service --yaml /etc/cloud-info-provider/openstack.yaml \
                             --middleware openstack \
-                            --os-username <user> --os-password <password> \
-                            --os-tenant-name <tenant> --os-auth-url <auth_url> 
