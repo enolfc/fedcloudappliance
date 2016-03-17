@@ -25,4 +25,4 @@ RUN chmod +x /usr/local/bin/bdii-update
 
 EXPOSE 2170
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.d/bdii.ini"]

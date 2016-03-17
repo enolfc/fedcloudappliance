@@ -19,5 +19,3 @@ COPY conf/bdii/cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provide
 COPY conf/bdii/openstack.rc /etc/cloud-info-provider/openstack.rc
 COPY conf/bdii/openstack.yaml /etc/cloud-info-provider/openstack.yaml
 RUN chmod +x /var/lib/bdii/gip/provider/cloud-info-provider
-
-CMD ["/usr/bin/supervisord"]

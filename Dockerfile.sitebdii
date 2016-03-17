@@ -8,5 +8,3 @@ RUN yum install -y http://repository.egi.eu/sw/production/umd/4/centos7/x86_64/b
 COPY conf/bdii/glite-info-site-defaults.conf /etc/bdii/gip/glite-info-site-defaults.conf
 COPY conf/bdii/site-urls.conf /etc/bdii/gip/site-urls.conf
 COPY conf/bdii/site.cfg /etc/glite-info-static/site/site.cfg
-
-CMD ["/usr/bin/supervisord"]
