@@ -1,0 +1,7 @@
+#!/bin/sh
+
+sed "s/\(rootpw *\)secret/\1$(mkpasswd -s 0 | tr '/' 'x')/" \
+    -i /etc/bdii/bdii-slapd.conf \
+       /etc/bdii/bdii-top-slapd.conf
+
+exec "$@"

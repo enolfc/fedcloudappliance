@@ -20,9 +20,12 @@ RUN echo "UPDATE_LOCK_FILE=/var/lock/bdii/bdii-update" >> /etc/sysconfig/bdii \
 
 COPY /conf/bdii/bdii.ini /etc/supervisord.d/bdii.ini
 COPY /conf/bdii/bdii-update /usr/local/bin/bdii-update
+COPY /conf/bdii/bdii-passwd /usr/local/bin/bdii-passwd
 
-RUN chmod +x /usr/local/bin/bdii-update
+RUN chmod +x /usr/local/bin/bdii-*
 
 EXPOSE 2170
 
+# be sure that we set a new password for the bdii for every execution
+ENTRYPOINT ["/usr/local/bin/bdii-passwd"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.d/bdii.ini"]
