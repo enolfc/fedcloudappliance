@@ -1,2 +1,2 @@
 # Run atrope every 8 hours
-23 */8 * * * docker run -v /etc/grid-security:/etc/grid-security -v /etc/voms.json:/etc/voms.json -v /etc/atrope:/etc/atrope -v /image_data:/image_data atrope atrope --debug dispatch
+23 */8 * * * docker run -v /etc/grid-security:/etc/grid-security -v /etc/voms.json:/etc/voms.json -v /etc/atrope:/etc/atrope -v /image_data:/image_data egifedcloud/atrope atrope --debug dispatch
