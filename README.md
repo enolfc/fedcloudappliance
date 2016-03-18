@@ -29,6 +29,9 @@ A host certificate is to send the accounting information before sending
 it to the accounting repository. DN of the host certificate must be registered
 in GOCDB service type eu.egi.cloud.accounting.
 
+VMI replication may require large disk space, by default the appliance uses
+`/image_data` for that. You may use a volume for that.
+
 ## Information discovery
 
 Information discovery provides a real-time view about the actual images and
@@ -110,4 +113,31 @@ can find there the CAs and the certificate and key files for the host (in
 
 ## VMI replication
 
+The appliance provide VMI replication with [atrope](https://github.com/alvarolopez/atrope),
+an alternative implementation to vmcatcher. Every 8 hours, the appliance will
+perform the following actions:
+* download the configured lists in `/etc/atrope/hepix.yaml` and verify its signature
+* check any changes in the lists and download new images
+* synchronise this information to the configured glance endpoint
+
+Configure the glance credentials in the `/etc/atrope/atrope.conf` file and add
+the lists you want to download at the `/etc/atrope/hepix.yaml`. See the
+following example for fedcloud.egi.vo list:
+
+```
+vo.fedcloud.egi.eu:
+    url: https://vmcaster.appdb.egi.eu/store/vo/fedcloud.egi.eu/image.list
+    enabled: true
+    endorser:
+        dn: '/DC=EU/DC=EGI/C=NL/O=Hosts/O=EGI.eu/CN=appdb.egi.eu'
+        ca: "/DC=ORG/DC=SEE-GRID/CN=SEE-GRID CA 2013"
+    token: 17580f07-1e33-4a38-94e3-3386daced5be
+    images: []
+    prefix: "FEDCLOUD "
+```
+
+Check (How to subscribe to a private image list)[https://wiki.appdb.egi.eu/main:faq:how_to_subscribe_to_a_private_image_list_using_the_vmcatcher]
+for instructions to get the URL and token. The `prefix` if specified will be
+added in the image title in glance. You can define a subset of images to
+download with the `images` field.
 
