@@ -111,6 +111,15 @@ cases. The cron file mounts as volume /etc/grid-security so the ssmsend script
 can find there the CAs and the certificate and key files for the host (in
 `/etc/grid-security/hostcert.pem` and `/etc/grid-security/hostkey.pem`).
 
+### Running the services
+
+Both caso and ssmsend are run via cron scripts. They are located at
+`/etc/cron.d/caso` and `/etc/crond.d/ssmsend` respectively. For convenience
+there are also two scripts `/usr/loca/bin/caso-extract.sh` and
+`/usr/local/bin/ssm-send.sh` that run the docker container with the proper
+volumes.
+
+
 ## VMI replication
 
 The appliance provide VMI replication with [atrope](https://github.com/alvarolopez/atrope),
@@ -125,19 +134,32 @@ the lists you want to download at the `/etc/atrope/hepix.yaml`. See the
 following example for fedcloud.egi.vo list:
 
 ```
-vo.fedcloud.egi.eu:
+# This must match the VO name configured at the voms.json file
+fedcloud.egi.eu:
     url: https://vmcaster.appdb.egi.eu/store/vo/fedcloud.egi.eu/image.list
     enabled: true
+    # All image lists from AppDB will have this endorser
     endorser:
         dn: '/DC=EU/DC=EGI/C=NL/O=Hosts/O=EGI.eu/CN=appdb.egi.eu'
         ca: "/DC=ORG/DC=SEE-GRID/CN=SEE-GRID CA 2013"
+    # You must get this from AppDB
     token: 17580f07-1e33-4a38-94e3-3386daced5be
+    # if you want to restrict the images downloaded from the AppDB,
+    # you can add here a list of the identifiers check the
+    # "dc:identifier" field in the image list file.
     images: []
+    # images names will prefixed with this string for easy identification
     prefix: "FEDCLOUD "
 ```
 
-Check (How to subscribe to a private image list)[https://wiki.appdb.egi.eu/main:faq:how_to_subscribe_to_a_private_image_list_using_the_vmcatcher]
+Check [How to subscribe to a private image list](https://wiki.appdb.egi.eu/main:faq:how_to_subscribe_to_a_private_image_list_using_the_vmcatcher)
 for instructions to get the URL and token. The `prefix` if specified will be
 added in the image title in glance. You can define a subset of images to
 download with the `images` field.
+
+### Running the service
+
+atrope is run via a cron scripts: `/etc/cron.d/atrope`. For convenience
+the `/usr/loca/bin/atrope-dispatch.sh` script runs the docker container
+with the proper volumes.
 
