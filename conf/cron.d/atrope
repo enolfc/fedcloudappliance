@@ -1,2 +1,2 @@
-# Run atrope every 8 hours
-23 */8 * * * /usr/local/bin/atrope-dispatch.sh
+# Run atrope every 12 hours
+23 */12 * * * /usr/local/bin/atrope-dispatch.sh >> /var/log/atrope.log 2>&1
