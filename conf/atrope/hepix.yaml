@@ -8,7 +8,7 @@
 #    images: []
 
 # FedCloud VO list
-vo.fedcloud.egi.eu:
+fedcloud.egi.eu:
     url: https://vmcaster.appdb.egi.eu/store/vo/fedcloud.egi.eu/image.list
     enabled: false
     endorser:
