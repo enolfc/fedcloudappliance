@@ -1,7 +1,7 @@
 FROM egifedcloud/bdii
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
-RUN yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm \
+RUN yum install -y https://repos.fedorapeople.org/repos/openstack/openstack-liberty/rdo-release-liberty-5.noarch.rpm \
     && yum install -y git python-pip python-novaclient
 
 RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo > /etc/yum.repos.d/EGI-trustanchors.repo \
@@ -11,7 +11,7 @@ RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-
     && update-ca-trust extract
 
 RUN mkdir /cloud-bdii \
-    && git clone https://github.com/EGI-FCTF/cloud-bdii-provider.git /cloud-bdii \
+    && git clone --branch 0.6.0 https://github.com/EGI-FCTF/cloud-bdii-provider.git /cloud-bdii \
     && cd /cloud-bdii \
     && pip install .
 
