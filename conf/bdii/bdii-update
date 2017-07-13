@@ -1,6 +1,8 @@
 #!/bin/sh
 
-set -x
+if [ "$DEBUG" = "x1" ] ; then
+    set -x
+fi
 
 if [ -r /etc/default/bdii ] ; then
     . /etc/default/bdii
@@ -48,9 +50,12 @@ else
         exit 1
 fi
 
+echo "BDII started, checking it's alive every 30 seconds"
 while test -d "/proc/$PID"; do
-    sleep 10 
+    sleep 30
 done
+
+echo "BDII is gone, exiting!"
 
 rm ${UPDATE_LOCK_FILE} ${SLAPD_LOCK_FILE}
 
