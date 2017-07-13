@@ -37,7 +37,7 @@ touch ${UPDATE_LOCK_FILE}
 touch ${SLAPD_LOCK_FILE}
 
 if [ ! -f ${UPDATE_PID_FILE} ]; then
-    sleep 2
+    sleep 60
 fi
 if [ -f ${UPDATE_PID_FILE} ]; then
     PID=$(cat ${UPDATE_PID_FILE})
