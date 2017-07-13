@@ -29,6 +29,7 @@ if [ -f "${SLAPD_LOCK_FILE}" ] || [ -f "${UPDATE_LOCK_FILE}" ] ; then
     exit 1
 fi
 
+rm -f $UPDATE_PID_FILE
 
 export SLAPD_CONF=${SLAPD_CONF}
 ${BDII_UPDATE} -c ${BDII_CONF} -d
