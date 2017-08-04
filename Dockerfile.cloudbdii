@@ -11,7 +11,7 @@ RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-
     && update-ca-trust extract
 
 RUN mkdir /cloud-bdii \
-    && git clone --branch 0.6.0 https://github.com/EGI-FCTF/cloud-bdii-provider.git /cloud-bdii \
+    && git clone --branch 0.8.3 https://github.com/EGI-FCTF/cloud-bdii-provider.git /cloud-bdii \
     && cd /cloud-bdii \
     && pip install .
 
