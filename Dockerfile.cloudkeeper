@@ -18,6 +18,8 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
 RUN fetch-crl || exit 0
 
 RUN gem install cloudkeeper
-RUN mkdir -p /var/log/cloudkeeper
+RUN mkdir -p /var/log/cloudkeeper \
+             /var/lock/cloudkeeper \
+             /var/spool/cloudkeeper/images
 
 CMD ["cloudkeeper"]
