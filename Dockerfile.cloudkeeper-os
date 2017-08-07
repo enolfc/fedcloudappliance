@@ -17,9 +17,10 @@ RUN mkdir /cloudkeeper \
     && pip install .
 
 
-RUN mkdir -p /etc/cloudkeeper-os/
+RUN mkdir -p /etc/cloudkeeper-os/ \
+             /var/spool/cloudkeeper/images
 
-COPY /conf/cloudkeeper-os /conf/cloudkeeper-os
+COPY /conf/cloudkeeper-os /etc/cloudkeeper-os
 COPY /conf/voms.json /etc/voms.json
 
 EXPOSE 50051
