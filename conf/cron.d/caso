@@ -1,2 +1,2 @@
 # Run cASO every hour 
-14 * * * * /usr/local/bin/caso-extract.sh >> /var/log/caso.log 2>&1
+14 * * * * root /usr/local/bin/caso-extract.sh >> /var/log/caso.log 2>&1
