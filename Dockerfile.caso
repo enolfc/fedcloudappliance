@@ -4,7 +4,7 @@ MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 RUN apt-get update \
     && apt-get -qy install --fix-missing \
         curl python-virtualenv python-pip python-dev \
-        libldap2-dev libsasl2-dev \
+        libldap2-dev libsasl2-dev libffi-dev libssl-dev \
     && apt-get clean autoclean \
     && apt-get autoremove -y 
 
@@ -18,7 +18,7 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
 
 # install cASO on its own virtualenv
 RUN virtualenv /usr/local/caso \
-    && /usr/local/caso/bin/pip install caso
+    && /usr/local/caso/bin/pip install caso==1.1.1
 
 RUN fetch-crl || exit 0
 
@@ -27,6 +27,6 @@ RUN . /usr/local/caso/bin/activate \
 
 RUN mkdir /var/spool/caso
 COPY conf/caso/caso.conf /etc/caso/caso.conf
-COPY conf/voms.json /etc/voms.json
+COPY conf/voms.json /etc/caso/voms.json
 
 CMD ["/usr/local/caso/bin/caso-extract"]
