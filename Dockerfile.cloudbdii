@@ -1,8 +1,9 @@
 FROM egifedcloud/bdii
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
-RUN yum install -y https://repos.fedorapeople.org/repos/openstack/EOL/openstack-liberty/rdo-release-liberty-5.noarch.rpm \
-    && yum install -y git python-pip python-novaclient
+RUN yum install -y centos-release-openstack-queens \
+    && yum update -y \
+    && yum install -y git python-pip python-novaclient python-glanceclient
 
 RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo > /etc/yum.repos.d/EGI-trustanchors.repo \
     && yum -y install ca-policy-egi-core \
@@ -10,10 +11,8 @@ RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-
     && ln -s /etc/grid-security/certificates/*.pem . \
     && update-ca-trust extract
 
-RUN mkdir /cloud-bdii \
-    && git clone --branch 0.8.3 https://github.com/EGI-FCTF/cloud-bdii-provider.git /cloud-bdii \
-    && cd /cloud-bdii \
-    && pip install .
+RUN curl -L http://repository.egi.eu/community/software/cloud.info.provider/0.x/releases/repofiles/centos-7-x86_64.repo > /etc/yum.repos.d/cloud-info-provider.repo \
+     && yum -y install cloud-info-provider
 
 COPY conf/bdii/cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
 COPY conf/bdii/openstack.rc /etc/cloud-info-provider/openstack.rc
