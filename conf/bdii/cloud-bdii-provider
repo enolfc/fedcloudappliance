@@ -1,5 +1,9 @@
 #!/bin/sh
 
 . /etc/cloud-info-provider/openstack.rc
-cloud-info-provider-service --yaml /etc/cloud-info-provider/openstack.yaml \
-                            --middleware openstack \
+
+for P in $(openstack project list -c Name -f value); do
+    cloud-info-provider-service --yaml /etc/cloud-info-provider/openstack.yaml \
+                                --os-project-name $P \
+                                --middleware openstack
+done
