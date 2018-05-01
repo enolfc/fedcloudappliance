@@ -3,7 +3,7 @@ MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
 RUN yum install -y centos-release-openstack-queens \
     && yum update -y \
-    && yum install -y git python-pip python-novaclient python-glanceclient
+    && yum install -y git python-pip python-novaclient python-glanceclient python-openstackclient
 
 RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo > /etc/yum.repos.d/EGI-trustanchors.repo \
     && yum -y install ca-policy-egi-core \
