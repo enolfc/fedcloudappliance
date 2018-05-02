@@ -21,7 +21,7 @@ RUN virtualenv /usr/local/caso \
     && /usr/local/caso/bin/pip install --upgrade setuptools \
     && /usr/local/caso/bin/pip install caso==1.1.1
 
-RUN fetch-crl || exit 0
+RUN fetch-crl -p 2 -T 30|| exit 0
 
 RUN . /usr/local/caso/bin/activate \
     && cat /etc/grid-security/certificates/*.pem >> $(python -m requests.certs)

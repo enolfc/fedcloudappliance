@@ -15,7 +15,7 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
     && apt-get clean autoclean \
     && apt-get autoremove -y 
 
-RUN fetch-crl || exit 0
+RUN fetch-crl -p 2 -T 30 || exit 0
 
 RUN gem install cloudkeeper
 RUN mkdir -p /var/log/cloudkeeper \
