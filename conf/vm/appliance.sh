@@ -18,7 +18,7 @@ mkdir -p /etc/cloudkeeper \
 
 pushd $APPLIANCE_DIR
 
-cp conf/voms.json /etc/
+cp conf/cloudkeeper/voms.json /etc/cloudkeeper-os/voms.json
 cp conf/cloudkeeper/cloudkeeper-os.conf conf/cloudkeeper/cloudkeeper.yml \
    conf/cloudkeeper/image-lists.conf \
    /etc/cloudkeeper/
