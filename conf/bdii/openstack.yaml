@@ -11,7 +11,7 @@ compute:
     # Hypervisor version
     hypervisor_version: 0.0.0
     # OpenStack version
-    middleware_version: liberty 
+    middleware_version: ocata
     # Service Production level (testing, candidate, production...)
     service_production_level: production
     # Service capabilities
@@ -22,13 +22,13 @@ compute:
     endpoints:
         # Default values for the endpoints. We will
         # produce entries for two kind of endpoints if they
-        # are in the catalog: occi and openstack. So as to 
+        # are in the catalog: occi and openstack. So as to
         # specify a version, set the two options below.
         defaults:
             openstack_api_version: v2
-            occi_api_version: 1.1
+            occi_api_version: 1.2
             api_endpoint_technology: REST
-            api_authn_method: X509-VOMS
+            api_authn_method: oidc
             production_level: production
 
     templates:
