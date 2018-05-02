@@ -8,5 +8,5 @@ jobs:
   include:
     - stage: build docker images
       script:
-      - cd accounting/caso && docker build -t egifedcloud/caso . 
-      - cd accounting/ssm && docker build -t egifedcloud/caso . 
+      - pushd accounting/caso && docker build -t egifedcloud/caso . && popd
+      - pushd accounting/ssm && docker build -t egifedcloud/ssm . && popd
