@@ -1,0 +1,12 @@
+
+sudo: required
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: build docker images
+      script:
+      - cd accounting/caso && docker build -t egifedcloud/caso . 
+      - cd accounting/ssm && docker build -t egifedcloud/caso . 
