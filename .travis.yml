@@ -8,10 +8,10 @@ jobs:
   include:
     - stage: build docker images
       script:
-      - pushd cloudkeeper/core && docker build -t egifedcloud/cloudkeeper . && popd
-      - pushd cloudkeeper/os && docker build -t egifedcloud/cloudkeeper-os . && popd
-      - pushd cloud-info/bdii && docker build -t egifedcloud/bdii . && popd
-      - pushd cloud-info/site && docker build -t egifedcloud/sitebdii . && popd
-      - pushd cloud-info/cloud && docker build -t egifedcloud/cloudbdii . && popd
-      - pushd accounting/caso && docker build -t egifedcloud/caso . && popd
-      - pushd accounting/ssm && docker build -t egifedcloud/ssm . && popd
+      - docker build -t egifedcloud/cloudkeeper cloudkeeper/core
+      - docker build -t egifedcloud/cloudkeeper-os cloudkeeper/os
+      - docker build -t egifedcloud/bdii cloud-info/bdii
+      - docker build -t egifedcloud/sitebdii cloud-info/site
+      - docker build -t egifedcloud/cloudbdii cloud-info/cloud
+      - docker build -t egifedcloud/caso accounting/caso
+      - docker build -t egifedcloud/ssm accounting/ssm
