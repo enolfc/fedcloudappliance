@@ -26,7 +26,7 @@ RUN curl -Ls https://github.com/apel/ssm/archive/2.1.7-1.tar.gz | tar -xzf - \
     && rm -rf ssm-2.1.7-1
 
 # Config
-COPY conf/apel/sender.cfg /etc/apel/sender.cfg
-COPY conf/apel/logging.cfg /etc/apel/logging.cfg
+COPY sender.cfg /etc/apel/sender.cfg
+COPY logging.cfg /etc/apel/logging.cfg
 
 CMD ["/usr/local/bin/ssmsend"]

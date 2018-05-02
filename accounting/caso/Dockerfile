@@ -27,7 +27,7 @@ RUN . /usr/local/caso/bin/activate \
     && cat /etc/grid-security/certificates/*.pem >> $(python -m requests.certs)
 
 RUN mkdir /var/spool/caso
-COPY conf/caso/caso.conf /etc/caso/caso.conf
-COPY conf/caso/voms.json /etc/caso/voms.json
+COPY caso.conf /etc/caso/caso.conf
+COPY voms.json /etc/caso/voms.json
 
 CMD ["/usr/local/caso/bin/caso-extract"]

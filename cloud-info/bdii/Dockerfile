@@ -18,9 +18,9 @@ RUN mkdir -p /var/lib/bdii/db/stats \
 RUN echo "UPDATE_LOCK_FILE=/var/lock/bdii/bdii-update" >> /etc/sysconfig/bdii \
     && echo "SLAPD_LOCK_FILE=/var/lock/bdii/bdii-slapd" >> /etc/sysconfig/bdii
 
-COPY /conf/bdii/bdii.ini /etc/supervisord.d/bdii.ini
-COPY /conf/bdii/bdii-update /usr/local/bin/bdii-update
-COPY /conf/bdii/bdii-passwd /usr/local/bin/bdii-passwd
+COPY bdii.ini /etc/supervisord.d/bdii.ini
+COPY bdii-update /usr/local/bin/bdii-update
+COPY bdii/bdii-passwd /usr/local/bin/bdii-passwd
 
 RUN chmod +x /usr/local/bin/bdii-*
 

@@ -20,8 +20,8 @@ RUN mkdir /cloudkeeper \
 RUN mkdir -p /etc/cloudkeeper-os/ \
              /var/spool/cloudkeeper/images
 
-COPY /conf/cloudkeeper/cloudkeeper-os.conf /etc/cloudkeeper-os/cloudkeeper-os.conf
-COPY /conf/cloudkeeper/voms.json /etc/cloudkeeper-os/voms.json
+COPY cloudkeeper-os.conf /etc/cloudkeeper-os/cloudkeeper-os.conf
+COPY voms.json /etc/cloudkeeper-os/voms.json
 
 EXPOSE 50051
 

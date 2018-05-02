@@ -22,8 +22,8 @@ RUN mkdir -p /var/log/cloudkeeper \
              /var/lock/cloudkeeper \
              /var/spool/cloudkeeper/images
 
-COPY /conf/cloudkeeper/entrypoint.sh /entrypoint.sh
-COPY /conf/cloudkeeper/image-lists.conf /etc/cloudkeeper/image-lists.conf
+COPY entrypoint.sh /entrypoint.sh
+COPY image-lists.conf /etc/cloudkeeper/image-lists.conf
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

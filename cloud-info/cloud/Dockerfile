@@ -14,7 +14,7 @@ RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-
 RUN curl -L http://repository.egi.eu/community/software/cloud.info.provider/0.x/releases/repofiles/centos-7-x86_64.repo > /etc/yum.repos.d/cloud-info-provider.repo \
      && yum -y install cloud-info-provider
 
-COPY conf/bdii/cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
-COPY conf/bdii/openstack.rc /etc/cloud-info-provider/openstack.rc
-COPY conf/bdii/openstack.yaml /etc/cloud-info-provider/openstack.yaml
+COPY cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
+COPY openstack.rc /etc/cloud-info-provider/openstack.rc
+COPY openstack.yaml /etc/cloud-info-provider/openstack.yaml
 RUN chmod +x /var/lib/bdii/gip/provider/cloud-info-provider
