@@ -1,17 +1,26 @@
-
 sudo: required
-
 services:
-  - docker
-
+- docker
 jobs:
   include:
-    - stage: build docker images
-      script:
-      - docker build -t egifedcloud/cloudkeeper cloudkeeper/core
-      - docker build -t egifedcloud/cloudkeeper-os cloudkeeper/os
-      - docker build -t egifedcloud/bdii cloud-info/bdii
-      - docker build -t egifedcloud/sitebdii cloud-info/site
-      - docker build -t egifedcloud/cloudbdii cloud-info/cloud
-      - docker build -t egifedcloud/caso accounting/caso
-      - docker build -t egifedcloud/ssm accounting/ssm
+  - stage: build docker images
+    script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t cloudkeeper cloudkeeper/core
+    - docker push $DOCKER_USERNAME/cloudkeeper
+    - docker build -t cloudkeeper-os cloudkeeper/os
+    - docker push $DOCKER_USERNAME/cloudkeeper-os
+    - docker build -t bdii cloud-info/bdii
+    - docker push $DOCKER_USERNAME/bdii
+    - docker build -t sitebdii cloud-info/site
+    - docker push $DOCKER_USERNAME/sitebdii
+    - docker build -t cloudbdii cloud-info/cloud
+    - docker push $DOCKER_USERNAME/cloudbdii
+    - docker build -t caso accounting/caso
+    - docker push $DOCKER_USERNAME/caso
+    - docker build -t ssm accounting/ssm
+    - docker push $DOCKER_USERNAME/ssm
+env:
+  global:
+  - secure: uldohuY8TIUVynuTzQWWNH5tG7bTHH0fu7RBYmp66xRIFU8T6q4EWwhab5mbK/RFZsSZf0ChVM6iachUxVfTQREm2a82vpnxE+lhyGFYdvkyIRTDWP1oxX8QobkOLulqLw/rXvy0DV+Yx8Zl8jrOgNWTQOzGvpM2NxaLT/vYyA9TXa81n/TSJNSF8VgwPojHqpmdaXdUgUNM6BWe0VHIPRKijty/HFj5jYUDJhC4/FGbsTmCPhSBjcxqQT8pDVyrvjWfNj21H37Wud5XSfaRRbUdyTjqf5J+Qfc6Rhp343DxMlkG/kPaus6EAdl/nxD84FPaJEcs6SJxaoVFDsJ/RXRIXBXUJunJuOfXboisWXfDMvr6666a3T3VRDiPdgNmOKOt+2guIttHG/1sw9n+5okMVdaSYcouc0CfTRPi/9V/BdksNgWQcddRoVaHgpD7NUoXXX2gcPb046k7jMUGI32RjnhDxgK6TzHoKPjs/8ne2QSQPxMhuFHcXzFueHkXm1ve/UDEycWpbBHXopWv7f51HHT/DBt2kCSTJvl5a6RCCCQxiJoR0rLLTtiF6W6iajBopP+rnh7QKrstYu1qYWCJjEyO5Z7N9i6e25e2ejFZJxVpfw0bhlNWQ/S1tcNdNLPzZIrY3vUVnf2DlA6oWCWa2YNhSJW4APk2WremTiQ=
+  - secure: NJEgBsfair6zkAaCuFxwnSn+sOKbnX9mP5Xqst6kWQwsNEmlBoDQ4vbJmuYPEQ2rTyutsWcedrbZ28tREC14bHOmRDH4kV0w1hDv24CHLDsWGkvvW/tiG9wdtbt30nHn7RBbqCSb3N5Ymi0uCcK55E+y2q831dkl5N6WYcdxOzSJLSD6IXwv8WR/1TChyGq7FRE+rzF1rJszSBA677GJTOTrRGWui4GDrcztALar2OF/c7+5J7rg2WGspLFws3J8lkzB9qtkoi7WFUQhkHX1dJnkEix0L3j8Y8l0w1OgP8/DmGZpaAufSBqmCMuA02q/dsOGBIwgnpd7Lpa4DEZzZyepQX8DYiKgK9lRukp3pwIBpy4e9fErEpOU1ahNiGbHoh0HJV6A3oQz7xqXYUEhcOJHtWcQMk05MdqZ79QJZyJWHCN8t/apFZaI3IL56x1vudfSRAcyLl3ruALaL52f2aXN94qdbFh7RWmLXtWfum/Yg+TOB1i0wrgyizlOiM+8K/uKQF4BIkb0omKAR8A/uOq2BWC8hwA2ToIwEF+h1c2cz1UNg5kBeNQTonzwnw9z1QtxzEXfqCJWCC0DcAcXP5+V5R777dhxdI3z024Obki3IIzD62qD2j0gw4xuIkMWA2QHUF7tdXEqghb99KNV5cbHRytaQjqyQ7k8oTzoeGM=
