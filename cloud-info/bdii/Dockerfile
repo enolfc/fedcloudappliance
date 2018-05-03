@@ -20,7 +20,7 @@ RUN echo "UPDATE_LOCK_FILE=/var/lock/bdii/bdii-update" >> /etc/sysconfig/bdii \
 
 COPY bdii.ini /etc/supervisord.d/bdii.ini
 COPY bdii-update /usr/local/bin/bdii-update
-COPY bdii/bdii-passwd /usr/local/bin/bdii-passwd
+COPY bdii-passwd /usr/local/bin/bdii-passwd
 
 RUN chmod +x /usr/local/bin/bdii-*
 
