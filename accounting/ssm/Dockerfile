@@ -16,14 +16,15 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
     && apt-get clean autoclean \
     && apt-get autoremove -y
 
+ENV SSM_VERSION=2.2.0-1
+
 # install apel
-RUN curl -Ls https://github.com/apel/ssm/archive/2.1.7-1.tar.gz | tar -xzf - \
-    && curl -Ls https://raw.githubusercontent.com/gregcorbett/ssm/ssm-setup-script/setup.py > ssm-2.1.7-1/setup.py \
-    && cd ssm-2.1.7-1 \
+RUN curl -Ls https://github.com/apel/ssm/archive/$SSM_VERSION.tar.gz | tar -xzf - \
+    && cd ssm-$SSM_VERSION \
     && pip install . \
     && mkdir -p /var/run/apel /var/spool/apel /var/log/apel /etc/apel \
     && cd .. \
-    && rm -rf ssm-2.1.7-1
+    && rm -rf ssm-$SSM_VERSION
 
 # Config
 COPY sender.cfg /etc/apel/sender.cfg
