@@ -5,27 +5,28 @@ jobs:
   include:
   - stage: build docker images
     script:
+    - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else echo "latest"; fi)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t cloudkeeper cloudkeeper/core
-    - docker tag cloudkeeper $DOCKER_USERNAME/cloudkeeper
+    - docker tag cloudkeeper $DOCKER_USERNAME/cloudkeeper:$TAG
     - docker push $DOCKER_USERNAME/cloudkeeper
     - docker build -t cloudkeeper-os cloudkeeper/os
-    - docker tag cloudkeeper-os $DOCKER_USERNAME/cloudkeeper-os
+    - docker tag cloudkeeper-os $DOCKER_USERNAME/cloudkeeper-os:$TAG
     - docker push $DOCKER_USERNAME/cloudkeeper-os
     - docker build -t bdii cloud-info/bdii
-    - docker tag bdii $DOCKER_USERNAME/bdii
+    - docker tag bdii $DOCKER_USERNAME/bdii:$TAG
     - docker push $DOCKER_USERNAME/bdii
     - docker build -t sitebdii cloud-info/site
-    - docker tag sitebdii $DOCKER_USERNAME/sitebdii
+    - docker tag sitebdii $DOCKER_USERNAME/sitebdii:$TAG
     - docker push $DOCKER_USERNAME/sitebdii
     - docker build -t cloudbdii cloud-info/cloud
-    - docker tag cloudbdii $DOCKER_USERNAME/cloudbdii
+    - docker tag cloudbdii $DOCKER_USERNAME/cloudbdii:$TAG
     - docker push $DOCKER_USERNAME/cloudbdii
     - docker build -t caso accounting/caso
-    - docker tag caso $DOCKER_USERNAME/caso
+    - docker tag caso $DOCKER_USERNAME/caso:$TAG
     - docker push $DOCKER_USERNAME/caso
     - docker build -t ssm accounting/ssm
-    - docker tag ssm $DOCKER_USERNAME/ssm
+    - docker tag ssm $DOCKER_USERNAME/ssm:$TAG
     - docker push $DOCKER_USERNAME/ssm
 env:
   global:
