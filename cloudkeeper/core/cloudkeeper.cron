@@ -1,2 +1,0 @@
-# Run cloudkeeper every 4 hours
-26 */4 * * * root /usr/local/bin/cloudkeeper.sh >> /var/log/cloudkeeper.log 2>&1

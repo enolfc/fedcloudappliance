@@ -1,3 +1,0 @@
-# Send SSM records every 6 hours
-30 */6 * * * root /usr/local/bin/ssm-send.sh >> /var/log/ssm.log 2>&1
-
