@@ -18,7 +18,7 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
 
 # install cASO on its own virtualenv
 RUN virtualenv /usr/local/caso \
-    && /usr/local/caso/bin/pip install --upgrade setuptools \
+    && /usr/local/caso/bin/pip install --upgrade setuptools pip \
     && /usr/local/caso/bin/pip install caso==1.1.1
 
 RUN fetch-crl -p 2 -T 30|| exit 0
