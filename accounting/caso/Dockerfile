@@ -9,7 +9,7 @@ RUN curl http://repository.egi.eu/sw/production/cmd-os/1/ubuntu/dists/xenial-upd
     && dpkg -i /tmp/cmd-os-release-1.0.0_all.deb
 
 RUN apt-get update \
-    && apt-get -qy install --fix-missing ca-policy-egi-core fetch-crl caso==1.2.0 \
+    && apt-get -qy install --fix-missing ca-policy-egi-core fetch-crl caso=1.2.0-1ubuntu1 \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
