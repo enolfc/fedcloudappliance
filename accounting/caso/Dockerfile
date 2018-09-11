@@ -1,33 +1,30 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
 RUN apt-get update \
     && apt-get -qy install --fix-missing \
-        curl python-virtualenv python-pip python-dev \
-        libldap2-dev libsasl2-dev libffi-dev libssl-dev \
-    && apt-get clean autoclean \
-    && apt-get autoremove -y 
-
-# Get CAs and fetch-crls
-RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
-    && echo "deb http://repository.egi.eu/sw/production/cas/1/current egi-igtf core" >> /etc/apt/sources.list.d/egi-cas.list \
-    && apt-get update \
-    && apt-get -qy install --fix-missing ca-policy-egi-core fetch-crl \
+        curl \
     && apt-get clean autoclean \
     && apt-get autoremove -y
 
-# install cASO on its own virtualenv
-RUN virtualenv /usr/local/caso \
-    && /usr/local/caso/bin/pip install --upgrade setuptools pip \
-    && /usr/local/caso/bin/pip install caso==1.1.1
 
-RUN fetch-crl -p 2 -T 30|| exit 0
+# CMD
+RUN curl http://repository.egi.eu/sw/production/cmd-os/1/ubuntu/dists/xenial-updates/main/binary-amd64/cmd-os-release_1.0.0-1_all.deb > /tmp/cmd-os-release-1.0.0_all.deb \
+    && dpkg -i /tmp/cmd-os-release-1.0.0_all.deb
 
-RUN . /usr/local/caso/bin/activate \
-    && cat /etc/grid-security/certificates/*.pem >> $(python -m requests.certs)
+RUN apt-get update \
+    && apt-get -qy install --fix-missing ca-policy-egi-core fetch-crl caso \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y
 
-RUN mkdir /var/spool/caso
+RUN fetch-crl -p 2 -T 30 || exit 0
+
+RUN cd /usr/local/share/ca-certificates \
+    && for f in /etc/grid-security/certificates/*.pem ; do ln -s $f $(basename $f .pem).crt; done \
+    && update-ca-certificates
+
+RUN mkdir -p /var/spool/caso
 COPY caso.conf /etc/caso/caso.conf
 COPY voms.json /etc/caso/voms.json
 
-CMD ["/usr/local/caso/bin/caso-extract"]
+CMD ["/usr/bin/caso-extr act"]
