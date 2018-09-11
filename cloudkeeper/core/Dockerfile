@@ -3,7 +3,7 @@ MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 #
 # Basic stuff
 RUN apt-get update \
-    && apt-get -qy install --fix-missing curl qemu-utils\
+    && apt-get -qy install --fix-missing curl qemu-utils
 
 # Get CAs and fetch-crls
 RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
