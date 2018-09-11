@@ -4,8 +4,6 @@ MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 # Basic stuff
 RUN apt-get update \
     && apt-get -qy install --fix-missing curl qemu-utils\
-    && apt-get clean autoclean \
-    && apt-get autoremove -y 
 
 # Get CAs and fetch-crls
 RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 | apt-key add - \
@@ -13,7 +11,8 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
     && apt-get update \
     && apt-get -qy install --fix-missing ca-policy-egi-core fetch-crl \
     && apt-get clean autoclean \
-    && apt-get autoremove -y 
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN fetch-crl -p 2 -T 30 || exit 0
 
