@@ -1,20 +1,18 @@
-FROM python:2.7
+FROM ubuntu:xenial
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
-# Dependencies
-RUN pip install grpcio \
-                pbr \
-                python-glanceclient \
-                keystoneauth1 \
-                oslo-config \
-                oslo-log  \
-                webob
+RUN apt-get update \
+    && apt-get -qy install --fix-missing curl
 
-# cloudkeeper-OS
-RUN mkdir /cloudkeeper \
-    && git clone --branch 0.9.4 https://github.com/the-cloudkeeper-project/cloudkeeper-os.git /cloudkeeper \
-    && cd /cloudkeeper \
-    && pip install .
+# CMD
+RUN curl http://repository.egi.eu/sw/production/cmd-os/1/ubuntu/dists/xenial-updates/main/binary-amd64/cmd-os-release_1.0.0-1_all.deb > /tmp/cmd-os-release-1.0.0_all.deb \
+    && dpkg -i /tmp/cmd-os-release-1.0.0_all.deb
+
+RUN apt-get update \
+    && apt-get -qy install --fix-missing cloudkeeper-os=0.9.9-1 \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 
 RUN mkdir -p /etc/cloudkeeper-os/ \
