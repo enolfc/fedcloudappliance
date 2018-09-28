@@ -24,4 +24,4 @@ RUN mkdir -p /var/spool/caso
 COPY caso.conf /etc/caso/caso.conf
 COPY voms.json /etc/caso/voms.json
 
-CMD ["/usr/bin/caso-extr act"]
+CMD ["/usr/bin/caso-extract"]
