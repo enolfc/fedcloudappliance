@@ -12,7 +12,7 @@ RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-
     && update-ca-trust extract
 
 RUN curl -L http://repository.egi.eu/community/software/cloud.info.provider/0.x/releases/repofiles/centos-7-x86_64.repo > /etc/yum.repos.d/cloud-info-provider.repo \
-     && yum -y install cloud-info-provider
+     && yum -y install cloud-info-provider-openstack-0.11.2-1.el7
 
 COPY cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
 COPY openstack.rc /etc/cloud-info-provider/openstack.rc
