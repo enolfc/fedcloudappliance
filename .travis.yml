@@ -5,7 +5,8 @@ jobs:
   include:
   - stage: build docker images
     script:
-    - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else echo "latest"; fi)
+    - export TAG=$(if [ "x$TRAVIS_TAG" != "x" ]; then echo "$TRAVIS_TAG"; else echo
+      "latest"; fi)
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t cloudkeeper cloudkeeper/core
     - docker tag cloudkeeper $DOCKER_REPO/cloudkeeper:$TAG
@@ -29,10 +30,8 @@ jobs:
     - docker push $DOCKER_REPO/cloudbdii
     - docker push $DOCKER_REPO/caso
     - docker push $DOCKER_REPO/ssm
-
 env:
   global:
   - DOCKER_REPO=egifedcloud
-  - secure: uldohuY8TIUVynuTzQWWNH5tG7bTHH0fu7RBYmp66xRIFU8T6q4EWwhab5mbK/RFZsSZf0ChVM6iachUxVfTQREm2a82vpnxE+lhyGFYdvkyIRTDWP1oxX8QobkOLulqLw/rXvy0DV+Yx8Zl8jrOgNWTQOzGvpM2NxaLT/vYyA9TXa81n/TSJNSF8VgwPojHqpmdaXdUgUNM6BWe0VHIPRKijty/HFj5jYUDJhC4/FGbsTmCPhSBjcxqQT8pDVyrvjWfNj21H37Wud5XSfaRRbUdyTjqf5J+Qfc6Rhp343DxMlkG/kPaus6EAdl/nxD84FPaJEcs6SJxaoVFDsJ/RXRIXBXUJunJuOfXboisWXfDMvr6666a3T3VRDiPdgNmOKOt+2guIttHG/1sw9n+5okMVdaSYcouc0CfTRPi/9V/BdksNgWQcddRoVaHgpD7NUoXXX2gcPb046k7jMUGI32RjnhDxgK6TzHoKPjs/8ne2QSQPxMhuFHcXzFueHkXm1ve/UDEycWpbBHXopWv7f51HHT/DBt2kCSTJvl5a6RCCCQxiJoR0rLLTtiF6W6iajBopP+rnh7QKrstYu1qYWCJjEyO5Z7N9i6e25e2ejFZJxVpfw0bhlNWQ/S1tcNdNLPzZIrY3vUVnf2DlA6oWCWa2YNhSJW4APk2WremTiQ=
-  - secure: NJEgBsfair6zkAaCuFxwnSn+sOKbnX9mP5Xqst6kWQwsNEmlBoDQ4vbJmuYPEQ2rTyutsWcedrbZ28tREC14bHOmRDH4kV0w1hDv24CHLDsWGkvvW/tiG9wdtbt30nHn7RBbqCSb3N5Ymi0uCcK55E+y2q831dkl5N6WYcdxOzSJLSD6IXwv8WR/1TChyGq7FRE+rzF1rJszSBA677GJTOTrRGWui4GDrcztALar2OF/c7+5J7rg2WGspLFws3J8lkzB9qtkoi7WFUQhkHX1dJnkEix0L3j8Y8l0w1OgP8/DmGZpaAufSBqmCMuA02q/dsOGBIwgnpd7Lpa4DEZzZyepQX8DYiKgK9lRukp3pwIBpy4e9fErEpOU1ahNiGbHoh0HJV6A3oQz7xqXYUEhcOJHtWcQMk05MdqZ79QJZyJWHCN8t/apFZaI3IL56x1vudfSRAcyLl3ruALaL52f2aXN94qdbFh7RWmLXtWfum/Yg+TOB1i0wrgyizlOiM+8K/uKQF4BIkb0omKAR8A/uOq2BWC8hwA2ToIwEF+h1c2cz1UNg5kBeNQTonzwnw9z1QtxzEXfqCJWCC0DcAcXP5+V5R777dhxdI3z024Obki3IIzD62qD2j0gw4xuIkMWA2QHUF7tdXEqghb99KNV5cbHRytaQjqyQ7k8oTzoeGM=
-
+  - secure: RTH6pB5W8kKjkAYRyQVNcAx7wO1dLJrZsrzXnQc162HGl2T6Vo5Kw9uHyqa5PSPE4MspG0X817pFUGTKPT4DS6uE7y6PwIOr8/pqxcYBXVPCVz1GrwLxysyzrMqJwWIRnRqpkqjHqoe2zfeqCxlmhiZ6acrb7KzK4GnC+0c9whAo/MtrwF8nirbIhDtpaxZvZvBzA/JCleTkyCDkRoB3raM5VGD0qKr9d5AFDpvXJwKA/y9fmanpBB2N40VI/8qI1jE0L7BUHmimpLzmzv4UZUkTQtNYKFBi43mSr5IUGT7bcUvv0McjWb+5howUP8bMHM7OfGB+ARaG37uhpGIr6v7oeIsbj56o/c8yIXb7Y87LEmEnAk0SD85gUeAQSGXIBUZHQNGdEQGkJ9xOkuf+kbv5MatABsXqdVSzPwwXoeLD/z1VUPHbvwf00iR5Mu63MR9WK0F/DI8lmrFtbJelQ4MEGlai5kWNlNVBPgYv8oLdPF2FyIL7oHCQBUfkCWjXWZ2QK/SuCROgXkUy4tD/3r0Q02PooTe2l8mOqyVPgTb62+t6k7aEo8esZIlQJrqgNFKGEOHlADcgQ1DlumQj8x/eh0FJ5rC+S43OcAKo9cHo/2jE8AdA2SS/zSkCquhCqDHto4sV6ARp+gXGWlNgjecXdRbI0bx7K1/QQjYJwyA=
+  - secure: HA1VvLrmZSStscVT7Iql+O7n4eh686udGp1KfadoPsFXx2EfGOcrCA6xUOefRZpqRe+nIjiE6cxFWdyTplATr+cpICYNS2omNlJXVlsU45w9c60wBBQj21TmvPguQyDWeOWdyhcCq5boCkLepoKwMultIznnFhnrz5jsoees0X25rVM8sw/M6qg5Z0gwgDibUUHZopBXYLovefZ3mXj7AfuPyH0Dn3KnpQ/yXl1GetJeYOCSLtTQbpV3Jnh5BqkAJ39lhYfiGSiCyGyxNfT7fB8rm4byj0G/QPuwnpWH2FZRRUM0gnNcDAAKSsEYg/Y0xIoz/Cbs/uo0E5/YpFlwdOY6iYDIG4E8LdN6BBXY9aEf7YGhpwnxug7yfheIT36o1JspxZ4r+XcSr+VypD8ONha+0c7jUIb64dekQX1qRCLRY8lMNi80o6sr2jFZuo/KEG+2PRMGCNp5WG+93FiSeRRenGXkPZ8euosSAV3Vmhs5Q/kwvGfp35qVNCe2XpImSLx4XcyaIGPf6sVKYnJBYLp/IRzROfjCqgoi+s4Gd3S3LXKyY9trPKRIeXdx7Z9XQhSkLpzQj+QnPKNKAfWpzbnr88jC5W8IoZfAQ7BNksRLHaNHfcsI1bziBExgVZiTgbv1vLiyH5OGth5+c5KXU4C7+fHSe4XUFWUPjD9Am8g=
