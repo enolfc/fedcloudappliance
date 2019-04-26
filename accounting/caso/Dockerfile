@@ -29,6 +29,6 @@ COPY caso.conf /etc/caso/caso.conf
 COPY voms.json /etc/caso/voms.json
 
 # override caso :(
-RUN pip install git+https://github.com/enolfc/caso.git@public_iface
+RUN pip install --upgrade git+https://github.com/enolfc/caso.git@public_iface
 
 CMD ["/usr/local/bin/caso-extract"]
