@@ -16,13 +16,14 @@ RUN curl https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA
 
 RUN fetch-crl -p 2 -T 30 || exit 0
 
-RUN gem install cloudkeeper
+RUN gem install cloudkeeper -v 1.7.1
 RUN mkdir -p /var/log/cloudkeeper \
              /var/lock/cloudkeeper \
              /var/spool/cloudkeeper/images
 
 COPY entrypoint.sh /entrypoint.sh
 COPY image-lists.conf /etc/cloudkeeper/image-lists.conf
+COPY cloudkeeper.yml /etc/cloudkeeper/cloudkeeper.yml
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
