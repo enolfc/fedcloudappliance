@@ -6,11 +6,6 @@ fi
 
 EXTRA_OPTS=""
 
-IMAGE_LISTS_FILE=/etc/cloudkeeper/image-lists.conf
-if [ -f "$IMAGE_LISTS_FILE" ]; then
-    EXTRA_OPTS="$EXTRA_OPTS --image-lists=$(cat $IMAGE_LISTS_FILE | grep -v "^#" |  tr -s '\n' ' ')"
-fi
-
 if [ "x$BACKEND_PORT_50051_TCP_ADDR" != "x" ]; then
     EXTRA_OPTS="$EXTRA_OPTS --backend-endpoint=$BACKEND_PORT_50051_TCP_ADDR:$BACKEND_PORT_50051_TCP_PORT"
 fi

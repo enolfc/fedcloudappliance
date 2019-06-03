@@ -1,5 +1,5 @@
 cloudkeeper:
-  image-lists: # List of image lists to sync against
+  image-lists-file: /etc/cloudkeeper/image-lists.conf
   ca-dir: /etc/grid-security/certificates/ # CA directory
   authentication: false # core (client) <-> backend (server) authentication (certificate, key and backend-certificate options)
   certificate: /etc/grid-security/hostcert.pem # Core's host certificate
