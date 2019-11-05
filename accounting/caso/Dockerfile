@@ -2,7 +2,10 @@ FROM ubuntu:xenial
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
 RUN apt-get update \
-    && apt-get -qy install --fix-missing curl
+    && apt-get -qy install --fix-missing curl \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # CMD
 RUN curl http://repository.egi.eu/sw/production/cmd-os/1/ubuntu/dists/xenial-updates/main/binary-amd64/cmd-os-release_1.0.0-1_all.deb > /tmp/cmd-os-release-1.0.0_all.deb \
@@ -13,7 +16,6 @@ RUN curl http://repository.egi.eu/sw/production/cmd-os/1/ubuntu/dists/xenial-upd
        python-pip \
        ca-policy-egi-core \
        fetch-crl \
-       caso=1.2.0-1ubuntu1 \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
@@ -28,7 +30,9 @@ RUN mkdir -p /var/spool/caso
 COPY caso.conf /etc/caso/caso.conf
 COPY voms.json /etc/caso/voms.json
 
-# override caso :(
-RUN pip install --upgrade git+https://github.com/IFCA/caso.git@1.3.3
+# install caso, force more-itertools to v5.0.0 (python2!)
+RUN pip install git+https://github.com/IFCA/caso.git@1.3.3 more-itertools==5.0.0
+# make sure CAs are in the right place
+RUN cat /etc/grid-security/certificates/*.pem >> $(python -m requests.certs)
 
 CMD ["/usr/local/bin/caso-extract"]
