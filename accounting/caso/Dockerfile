@@ -30,8 +30,10 @@ RUN mkdir -p /var/spool/caso
 COPY caso.conf /etc/caso/caso.conf
 COPY voms.json /etc/caso/voms.json
 
+ARG CASO_VERSION=1.4.0
+
 # install caso, force more-itertools to v5.0.0 (python2!)
-RUN pip install git+https://github.com/IFCA/caso.git@1.3.3 more-itertools==5.0.0
+RUN pip install git+https://github.com/IFCA/caso.git@$CASO_VERSION more-itertools==5.0.0
 # make sure CAs are in the right place
 RUN cat /etc/grid-security/certificates/*.pem >> $(python -m requests.certs)
 
