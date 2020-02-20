@@ -7,15 +7,18 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+ARG CASO_VERSION=1.4.0-1ubuntu1
+
 # CMD
 RUN curl http://repository.egi.eu/sw/production/cmd-os/1/ubuntu/dists/xenial-updates/main/binary-amd64/cmd-os-release_1.0.0-1_all.deb > /tmp/cmd-os-release-1.0.0_all.deb \
     && dpkg -i /tmp/cmd-os-release-1.0.0_all.deb \
     && apt-get update \
     && apt-get -qy install --fix-missing \
        git \
-       python-pip \
        ca-policy-egi-core \
        fetch-crl \
+       python-oslo-concurrency \
+       caso=$CASO_VERSION \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
@@ -30,11 +33,4 @@ RUN mkdir -p /var/spool/caso
 COPY caso.conf /etc/caso/caso.conf
 COPY voms.json /etc/caso/voms.json
 
-ARG CASO_VERSION=1.4.0
-
-# install caso, force more-itertools to v5.0.0 (python2!)
-RUN pip install git+https://github.com/IFCA/caso.git@$CASO_VERSION more-itertools==5.0.0
-# make sure CAs are in the right place
-RUN cat /etc/grid-security/certificates/*.pem >> $(python -m requests.certs)
-
-CMD ["/usr/local/bin/caso-extract"]
+CMD ["/usr/bin/caso-extract"]
