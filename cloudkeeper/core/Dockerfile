@@ -1,4 +1,4 @@
-FROM ruby:2
+FROM ruby:2.6
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 #
 # Basic stuff
