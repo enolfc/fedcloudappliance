@@ -22,7 +22,9 @@ RUN cd /usr/local/share/ca-certificates \
 
 
 # CMD packages for 1.4.3 are missing, so going for pip instead
-ARG CASO_VERSION=1.4.3
+# Using commit 592bde50a15c442b552c36ff1ddaf16c2ffee86b
+# that is working at 2020/08/28 and fixes one issue with ssm
+ARG CASO_VERSION=592bde50a15c442b552c36ff1ddaf16c2ffee86b
 
 RUN pip install git+https://github.com/IFCA/caso.git@$CASO_VERSION
 
