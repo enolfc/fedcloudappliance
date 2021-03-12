@@ -2,8 +2,8 @@ FROM centos:7
 MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
 
 RUN yum install -y centos-release-openstack-stein vim
-RUN curl http://repository.egi.eu/community/software/cloudkeeper.os/0.9.x/releases/repofiles/centos-7-x86_64.repo > \
-         /etc/yum.repos.d/cloudkeeper.repo
+# moved to different location as repos are not fully functional
+RUN curl http://appdb.egi.eu:9009/api/repofiles/index.php?id=1141 > /etc/yum.repos.d/cloudkeeper.repo
 RUN yum install -y cloudkeeper-os
 
 RUN mkdir -p /etc/cloudkeeper-os/ \

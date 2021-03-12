@@ -12,20 +12,14 @@ jobs:
     - docker tag cloudkeeper $DOCKER_REPO/cloudkeeper:$TAG
     - docker build -t cloudkeeper-os cloudkeeper/os
     - docker tag cloudkeeper-os $DOCKER_REPO/cloudkeeper-os:$TAG
-    - docker build -t bdii cloud-info/bdii
-    - docker tag bdii $DOCKER_REPO/bdii:$TAG
-    - docker build -t sitebdii cloud-info/site
-    - docker tag sitebdii $DOCKER_REPO/sitebdii:$TAG
-    - docker build -t cloudbdii cloud-info/cloud
-    - docker tag cloudbdii $DOCKER_REPO/cloudbdii:$TAG
+    - docker build -t cloud-info cloud-info
+    - docker tag cloud-info $DOCKER_REPO/cloud-info:$TAG
     - docker build -t caso accounting/caso
     - docker tag caso $DOCKER_REPO/caso:$TAG
     after_success:
     - docker push $DOCKER_REPO/cloudkeeper
     - docker push $DOCKER_REPO/cloudkeeper-os
-    - docker push $DOCKER_REPO/bdii
-    - docker push $DOCKER_REPO/sitebdii
-    - docker push $DOCKER_REPO/cloudbdii
+    - docker push $DOCKER_REPO/cloud-info
     - docker push $DOCKER_REPO/caso
 env:
   global:
