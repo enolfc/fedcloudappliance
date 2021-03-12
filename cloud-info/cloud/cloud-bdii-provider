@@ -1,6 +1,0 @@
-#!/bin/sh
-
-. /etc/cloud-info-provider/openstack.rc
-
-cloud-info-provider-service --yaml /etc/cloud-info-provider/openstack.yaml \
-                            --middleware openstack
