@@ -12,7 +12,7 @@ jobs:
     - docker tag cloudkeeper $DOCKER_REPO/cloudkeeper:$TAG
     - docker build -t cloudkeeper-os cloudkeeper/os
     - docker tag cloudkeeper-os $DOCKER_REPO/cloudkeeper-os:$TAG
-    - docker build -t cloud-info cloud-info/cloud
+    - docker build -t cloud-info cloud-info
     - docker tag cloud-info $DOCKER_REPO/cloud-info:$TAG
     - docker build -t caso accounting/caso
     - docker tag caso $DOCKER_REPO/caso:$TAG

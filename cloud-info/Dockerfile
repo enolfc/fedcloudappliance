@@ -26,4 +26,4 @@ COPY openstack.rc /etc/cloud-info-provider/openstack.rc
 COPY openstack.yaml /etc/cloud-info-provider/openstack.yaml
 RUN chmod +x /usr/local/bin/cloud-info-provider
 
-CMD ["/user/local/bin/cloud-info-provider"]
+CMD ["/usr/local/bin/cloud-info-provider"]
