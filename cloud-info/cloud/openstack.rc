@@ -1,4 +1,4 @@
-
+# OpenStack AUTH variables
 export OS_AUTH_URL=https://example.com:5000/v3
 export OS_PROJECT_DOMAIN_ID=default
 export OS_REGION_NAME=RegionOne
@@ -8,3 +8,7 @@ export OS_IDENTITY_API_VERSION=3
 export OS_USERNAME=<bdii user>
 export OS_PASSWORD=<secret>
 export OS_AUTH_TYPE=password
+
+# AMS cert
+export HOSTCERT=/etc/grid-security/hostcert.pem
+export HOSTKEY=/etc/grid-security/hostkey.pem
