@@ -1,23 +1,29 @@
-FROM egifedcloud/bdii
-MAINTAINER Enol Fernandez <enol.fernandez@egi.eu>
+FROM python:3
 
-RUN yum install -y centos-release-openstack-queens \
-    && yum update -y \
-    && yum install -y python-pip python-novaclient python-glanceclient python-openstackclient
+ARG CLOUD_INFO_VERSION=0.12.1
 
-RUN curl -L http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI-trustanchors.repo > /etc/yum.repos.d/EGI-trustanchors.repo \
-    && yum -y install ca-policy-egi-core \
-    && cd /etc/pki/ca-trust/source/anchors \
-    && ln -s /etc/grid-security/certificates/*.pem . \
-    && update-ca-trust extract
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir \
+        "git+https://github.com/EGI-Foundation/cloud-info-provider.git@$CLOUD_INFO_VERSION" \
+        python-glanceclient python-novaclient python-keystoneclient keystoneauth1
 
-ARG CIP_VERSION=0.12.0
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN yum localinstall -y \
-        https://github.com/EGI-Foundation/cloud-info-provider/releases/download/$CIP_VERSION/cloud-info-provider-openstack-$CIP_VERSION-1.el7.noarch.rpm \
-        https://github.com/EGI-Foundation/cloud-info-provider/releases/download/$CIP_VERSION/cloud-info-provider-$CIP_VERSION-1.el7.noarch.rpm
+# hadolint ignore=DL3015, DL3008
+RUN curl -Ls \
+        https://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3 \
+        | apt-key add - \
+    && echo 'deb http://repository.egi.eu/sw/production/cas/1/current egi-igtf core' \
+        > /etc/apt/sources.list.d/cas.list \
+    && apt-get update \
+    && apt-get install -y jq ca-policy-egi-core \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY cloud-bdii-provider /var/lib/bdii/gip/provider/cloud-info-provider
+RUN cat /etc/grid-security/certificates/*.pem >> "$(python -m requests.certs)"
+
+COPY cloud-info-provider /usr/local/bin/cloud-info-provider
 COPY openstack.rc /etc/cloud-info-provider/openstack.rc
 COPY openstack.yaml /etc/cloud-info-provider/openstack.yaml
-RUN chmod +x /var/lib/bdii/gip/provider/cloud-info-provider
+RUN chmod +x /usr/local/bin/cloud-info-provider
+
+CMD ["/user/local/bin/cloud-info-provider"]
