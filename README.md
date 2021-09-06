@@ -10,4 +10,4 @@ These are the configured components:
 * Accounting (cASO + SSMsend)
 * VMI replication (cloudkeeper)
 
-Documentation is available at https://docs.egi.eu/providers/fedcloud/openstack/
+Documentation is available at https://docs.egi.eu/providers/cloud-compute/openstack/
