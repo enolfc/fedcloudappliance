@@ -11,7 +11,7 @@ GOCDB_ID=$(python -c "from __future__ import print_function; \
                       print(gocdb.find_in_gocdb('$GOCDB_URL', \
                                                 '$GOCDB_SERVICE_TYPE')['gocdb_id'], end='')")
 
-SITE_TOPIC=$(yq .site.name /etc/cloud-info-provider/openstack.yaml | tr "." "-")
+SITE_TOPIC=$(yq -r .site.name /etc/cloud-info-provider/openstack.yaml | tr "." "-")
 AMS_TOPIC="SITE_${SITE_TOPIC}_ENDPOINT_${GOCDB_ID}"
 
 cloud-info-provider-service --yaml /etc/cloud-info-provider/openstack.yaml \
