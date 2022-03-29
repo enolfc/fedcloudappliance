@@ -22,8 +22,8 @@ RUN cd /usr/local/share/ca-certificates \
 
 
 # CMD packages for 1.4.3 are missing, so going for pip instead
-# Using version 2.1.1
-ARG CASO_VERSION=2.1.1
+# Using version 3.0.0
+ARG CASO_VERSION=3.0.0
 
 RUN pip install git+https://github.com/IFCA/caso.git@$CASO_VERSION
 
